@@ -91,21 +91,39 @@ steps:
     publishWebProjects: true
     arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory)'
     zipAfterPublish: true
+    
 
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish build artifact'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish build artifact'
+#   inputs:
 
-- task: AzureWebApp@1
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
+
+- task: AzureRmWebAppDeployment@4
   inputs:
     azureSubscription: 'Pay-As-You-Go(fde6eed6-357f-4177-897c-6844e12008c7)'
-    appType: 'webApp'
-    appName: 'msassi-webapp1'
+    appType: webApp
+    WebAppName: 'msassi-webapp1'
     resourceGroupName: 'msassi-rg'
-    package: '$Build.ArtifactStagingDirectory)/**/*.zip' 
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    ConnectionType: AzureRM
+
    # runtimeStack: 'NODE|10-lts'    
-  
+# - task: DownloadPipelineArtifact@2
+#   inputs:
+#     buildType: 'specific'
+#     project: 'a9c48a32-6275-4faa-83c7-f34648c5946c'
+#     definition: '20'
+#     buildVersionToDownload: 'latest'
+#     targetPath: '$(Build.ArtifactStagingDirectory)'
+# - task: AzureWebApp@1
+#   inputs:
+#     azureSubscription: 'AzureStream'
+#     appType: 'WebAppLinux'
+#     appName: 'msassi-web-app'
+#     resourceGroupName: 'msassi-web-app'
+#     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+#     runtimeStack: 'NODE|10-lts'  
