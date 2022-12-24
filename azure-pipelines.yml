@@ -100,6 +100,8 @@ steps:
     azureSubscription: 'Pay-As-You-Go(fde6eed6-357f-4177-897c-6844e12008c7)'
     appType: 'webApp'
     WebAppName: 'msassi-webapp1'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    DeploymentType: zipDeploy
+    PublishProfilePath: '$(System.DefaultWorkingDirectory)/**/*.zip' 
+#    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
     
   
